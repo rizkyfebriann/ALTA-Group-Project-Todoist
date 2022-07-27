@@ -1,6 +1,5 @@
 package Todoist.StepDefs;
 
-import Reqres.ReqresAPI.ReqresAPITesting;
 import Todoist.TodoistTesting.TodoistTesting;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -17,14 +16,10 @@ public class TodoistStepDefs {
     @Steps
     TodoistTesting todoistTesting;
 
-    @Then("API response status code should be {int} OK")
-    public void apiResponseStatusCodeShouldBeOK(int OK) {
-        SerenityRest.then().statusCode(200);
-    }
-
-    @Given("set authorization with valid bearer token")
-    public void setAuthorizationWithValidBearerToken() {
-        todoistTesting.postCreateProjectheader();
+    @Given("post create project with valid json file")
+    public void postCreateProjectWithValidJsonFile() {
+        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateUserWithValidAuthorization.json");
+        todoistTesting.postCreateProjectheader(jsonFiles);
     }
 
     @When("Send request post create a new project")
@@ -32,9 +27,9 @@ public class TodoistStepDefs {
         SerenityRest.when().post(TodoistTesting.CREATE_A_PROJECT);
     }
 
-    @And("request post create project with valid json file")
-    public void requestPostCreateProjectWithValidJsonFile() {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateUserWithValidAuthorization.json");
-        todoistTesting.postCreateProject(jsonFiles);
+    @Then("API response status code should be {int} OK")
+    public void apiResponseStatusCodeShouldBeOK(int OK) {
+        SerenityRest.then().statusCode(200);
     }
+
 }
