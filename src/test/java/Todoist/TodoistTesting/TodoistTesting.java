@@ -15,19 +15,30 @@ public class TodoistTesting {
 
     public static String CREATE_A_PROJECT = URL+"/rest/v1/projects";
 
+    public static String GET_A_PROJECT = URL+"/rest/v1/projects";
+
+    public String PROJECTS = "https://api.todoist.com/rest/v1/projects";
+
     @Step("Post create project headers")
     public void postCreateProjectheader(File json){
         SerenityRest.given()
-                    .contentType(ContentType.JSON)
-                    .body(json)
-                    .headers("Authorization","Bearer ba39cc2788122df9d25f70d46b2bbfb778afbbc0");
-    }
-
-    @Step("Post create project")
-    public void postCreateProject(File json){
-        SerenityRest.given()
                 .contentType(ContentType.JSON)
-                .body(json);
+                .body(json)
+                .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
+    }
+    //                .headers("Authorization","Bearer ");
+
+//    @Step("Post create project")
+//    public void postCreateProject(File json){
+//        SerenityRest.given()
+//                .contentType(ContentType.JSON)
+//                .body(json);
+//    }
+
+    @Step("Get all project")
+    public void getAllProject(){
+        SerenityRest.given()
+                .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
     }
 
 }
