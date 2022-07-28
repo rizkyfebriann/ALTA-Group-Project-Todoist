@@ -20,6 +20,7 @@ public class TodoistTesting {
     public static String GET_A_PROJECT = URL+"/rest/v1/projects/{id}";
     public static String GET_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projects/{id}/xx";
     public static String GET_ALL_COLLABORATORS = URL+"/rest/v1/projects/{id}/collaborators";
+    public static String DELETE_A_PROJECT = URL+"/rest/v1/projects/{id}";
 
 
     public String PROJECTS = "https://api.todoist.com/rest/v1/projects";
@@ -54,6 +55,19 @@ public class TodoistTesting {
 
     @Step("Get a project with id")
     public void getAProjectHeader(String id){
+        SerenityRest.given()
+                .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
+                .pathParam("id", id);
+    }
+
+    @Step("Delete user")
+    public void deleteProject(String id){
+        SerenityRest.given()
+                .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
+                .pathParam("id", id);
+    }
+    @Step("Get All Collaborator")
+    public void getAllCollaborators(String id){
         SerenityRest.given()
                 .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
                 .pathParam("id", id);

@@ -36,15 +36,21 @@ Feature: Testing API Todoist
     When Send request get a project
     Then API response status code should be 404 Not Found
 
-  Scenario: Get a project with invalid id
-    Given request get a project with invalid id "2295439998xx"
-    When Send request get a project
+  Scenario: Get a project with invalid path
+    Given request get a project with invalid path
+    When Send request get a project with invalid path
     Then API response status code should be 404 Not Found
 
   Scenario: Get all collaborators
-    Given Set authorization with valid bearer token
+    Given request get all collaborators
     When Send request get all collaborators
     Then API response status code should be 200 OK
+
+  Scenario: Delete a project
+    Given request delete project with id "2295439998"
+    When Send request delete project
+    Then API response status code should be 204 No Content
+
 
 
 
