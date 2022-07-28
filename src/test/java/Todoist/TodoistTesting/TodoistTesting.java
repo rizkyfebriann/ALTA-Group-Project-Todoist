@@ -15,6 +15,12 @@ public class TodoistTesting {
 
     public static String CREATE_A_PROJECT = URL+"/rest/v1/projects";
 
+    public static String FALSE_CREATE_A_PROJECT = URL+"/rest/v1/projectku";
+
+    public static String UPDATE_A_PROJECT = URL+"/rest/v1/projects/{id}";
+
+    public static String FALSE_UPDATE_A_PROJECT = URL+"/rest/v1/projectku/{id}";
+
     public static String GET_A_PROJECT = URL+"/rest/v1/projects";
 
     public String PROJECTS = "https://api.todoist.com/rest/v1/projects";
@@ -26,14 +32,33 @@ public class TodoistTesting {
                 .body(json)
                 .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
     }
-    //                .headers("Authorization","Bearer ");
 
-//    @Step("Post create project")
-//    public void postCreateProject(File json){
-//        SerenityRest.given()
-//                .contentType(ContentType.JSON)
-//                .body(json);
-//    }
+    @Step("Post create project headers invalid")
+    public void postCreateProjectheaderinvalid(File json){
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer test123");
+    }
+
+
+    @Step("Post update project headers valid")
+    public void postUpdateProjectheader(File json, String idProject){
+        SerenityRest.given()
+                .pathParam("id", idProject)
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
+    }
+
+    @Step("Post update project headers invalid")
+    public void postUpdateProjectheaderinvalid(File json, String idProject){
+        SerenityRest.given()
+                .pathParam("id", idProject)
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer testing123");
+    }
 
     @Step("Get all project")
     public void getAllProject(){
