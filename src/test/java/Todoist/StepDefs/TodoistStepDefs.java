@@ -164,42 +164,37 @@ public class TodoistStepDefs {
     public void requestGetACollaboratorWithValidId(String id) {
         todoistTesting.getAProjectHeader(id);
     }
-}
-
 
 //Delete project
 //Delete project with valid id
-@Given("request delete project with id {string}")
-public void requestDeleteProjectWithId(String id) {
+    @Given("request delete project with id {string}")
+    public void requestDeleteProjectWithId(String id) {
     todoistTesting.deleteProject(id);
-}
+    }
+
     @When("Send request delete project")
     public void sendRequestDeleteProject() {
         SerenityRest.when().delete(TodoistTesting.DELETE_A_PROJECT);
     }
-    @Then("API response status code should be {int} No Content")
-    public void apiResponseStatusCodeShouldBeNoContent(int statuscode) {
-        SerenityRest.then().statusCode(statuscode);
-    }
+
     //Delete project with invalid id
     @Given("request delete project with invalid id {string}")
     public void requestDeleteProjectWithInvalidIdId(String id) {
         todoistTesting.deleteProject(id);
     }
-    @Then("API response status code should be {int} Bad Request")
-    public void apiResponseStatusCodeShouldBeBadRequest(int BadRequest) {
-        SerenityRest.then().statusCode(BadRequest);
-    }
+
     //Delete project with invalid token
     @Given("request delete project id {string} with invalid token")
     public void requestDeleteProjectIdWithInvalidToken(String id) {
         todoistTesting.deleteProjectHeaderInvalidToken(id);
     }
+
     //  Delete project with invalid path
     @Given("request delete project id {string} with invalid path")
     public void requestDeleteProjectIdWithInvalidPath(String id) {
         todoistTesting.deleteProject(id);
     }
+
     @When("Send request delete project with invalid path")
     public void sendRequestDeleteProjectWithInvalidPath() {
         SerenityRest.when().delete(TodoistTesting.DELETE_A_PROJECT_INVALID_PATH);
