@@ -14,6 +14,10 @@ public class TodoistTesting {
     public static final String FILE_JSON = DIR+"/src/test/resources/fileJSONtodoist";
 
     public static String CREATE_A_PROJECT = URL+"/rest/v1/projects";
+    public static String CREATE_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projectku";
+
+    public static String UPDATE_A_PROJECT = URL+"/rest/v1/projects/{id}";
+    public static String UPDATE_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projectku/{id}";
 
     public static String GET_ALL_PROJECT = URL+"/rest/v1/projects";
     public static String GET_ALL_PROJECT_INVALID_PATH = URL+"/rest/v1/projects/xxx";
@@ -35,14 +39,31 @@ public class TodoistTesting {
                 .body(json)
                 .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
     }
-    //                .headers("Authorization","Bearer ");
+    @Step("Post create project headers invalid")
+    public void postCreateProjectheaderinvalid(File json){
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer test123");
+    }
 
-//    @Step("Post create project")
-//    public void postCreateProject(File json){
-//        SerenityRest.given()
-//                .contentType(ContentType.JSON)
-//                .body(json);
-//    }
+    @Step("Post update project headers")
+    public void postUpdateProjectheader(File json, String idProject){
+        SerenityRest.given()
+                .pathParam("id", idProject)
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
+    }
+
+    @Step("Post update project headers")
+    public void postUpdateProjectheaderinvalid(File json, String idProject){
+        SerenityRest.given()
+                .pathParam("id", idProject)
+                .contentType(ContentType.JSON)
+                .body(json)
+                .headers("Authorization","Bearer test123");
+    }
 
     @Step("Get all project")
     public void getProjectHeader(){

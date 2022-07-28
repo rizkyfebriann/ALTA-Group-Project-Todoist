@@ -10,7 +10,7 @@ Feature: Testing API Todoist
   Scenario: Create a new project with invalid authorization bearer token
     Given set invalid token & post create project with valid json file
     When Send request post create a new project
-    Then API response status code should be 401 unauthorized
+    Then API response status code should be 401 Unauthorized
 
   @case_negative @Create
   Scenario: Create a new project with invalid data on json file
@@ -22,7 +22,7 @@ Feature: Testing API Todoist
   Scenario: Create a new project with invalid path
     Given post create project with valid json file
     When Send request post create a new project on invalid path
-    Then API response status code should be 404 not found
+    Then API response status code should be 404 Not Found
 
   @case_positive @Update
   Scenario: Update a new project with valid authorization bearer token
@@ -34,7 +34,7 @@ Feature: Testing API Todoist
   Scenario: Update a new project with invalid authorization bearer token
     Given set invalid token and post update project on valid id "2295485780" with valid json file
     When Send request post update a project
-    Then API response status code should be 401 unauthorized
+    Then API response status code should be 401 Unauthorized
 
   @case_negative @Update
   Scenario: Update a project with invalid data on json file
@@ -46,7 +46,7 @@ Feature: Testing API Todoist
   Scenario: Update a project with invalid path
     Given post update project on valid id "2295485780" with valid json file
     When Send request post update a project on invalid path
-    Then API response status code should be 404 not found
+    Then API response status code should be 404 Not Found
 
   Scenario: Update a project with invalid method
     Given post update project on valid id "2295485780" with valid json file
@@ -92,6 +92,7 @@ Feature: Testing API Todoist
 
   Scenario: Get all collaborators
     Given Set authorization with valid bearer token
+    And request get a collaborator with valid id "2295439998"
     When Send request get all collaborators
     Then API response status code should be 200 OK
 
