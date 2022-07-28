@@ -83,35 +83,17 @@ public class TodoistTesting {
                 .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
                 .pathParam("id", id);
     }
-    @Step("Delete user")
-    public void deleteProject(String id){
+
+    @Step("Delete project headers invalid token")
+    public void deleteProjectHeaderInvalidToken(String id){
         SerenityRest.given()
-                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97ba")
+                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97baXXXX")
                 .pathParam("id", id);
     }
     @Step("Delete project")
     public void deleteProject(String id){
         SerenityRest.given()
                 .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97ba")
-                .pathParam("id", id);
-    }
-
-    @Step("Delete project headers invalid token")
-    public void deleteProjectHeaderInvalidToken(String id){
-        SerenityRest.given()
-                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97baXXXX")
-                .pathParam("id", id);
-    }@Step("Delete project")
-    public void deleteProject(String id){
-        SerenityRest.given()
-                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97ba")
-                .pathParam("id", id);
-    }
-
-    @Step("Delete project headers invalid token")
-    public void deleteProjectHeaderInvalidToken(String id){
-        SerenityRest.given()
-                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97baXXXX")
                 .pathParam("id", id);
     }
 }
