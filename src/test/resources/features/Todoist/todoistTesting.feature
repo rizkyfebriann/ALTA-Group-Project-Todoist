@@ -1,4 +1,4 @@
-Feature: Testing API Todoist
+Feature: Testing API Todoist - Endpoint Create and Update
 
   @case_positive @Create
   Scenario: Create a new project with valid authorization bearer token
@@ -52,70 +52,6 @@ Feature: Testing API Todoist
     Given post update project on valid id "2295485780" with valid json file
     When Send request put update a project
     Then API response status code should be 405 method not allowed
-
-
-#Contoh Untuk Get
-  @case_positive @Get
-  Scenario: Get all project with valid authorization bearer token
-    Given Set authorization with valid bearer token
-    When Send request get all project
-    Then API response status code should be 200 OK
-    And Get all projects assert json validation
-
-  @case_negative @Get
-  Scenario: Get all project with invalid authorization bearer token
-    Given Set authorization with invalid bearer token
-    When Send request get all project
-    Then API response status code should be 401 Unauthorized
-
-  @case_negative @Get
-  Scenario: Get all project with invalid path
-    Given Set authorization with valid bearer token
-    When Send request get all project with invalid path
-    Then API response status code should be 404 Not Found
-
-  Scenario: Get a project with valid id
-    Given request get a project with valid id "2295439998"
-    When Send request get a project
-    Then API response status code should be 200 OK
-    And Get a projects assert json validation
-
-  Scenario: Get a project with invalid id
-    Given request get a project with invalid id "2295439998xx"
-    When Send request get a project
-    Then API response status code should be 404 Not Found
-
-  Scenario: Get a project with invalid id
-    Given request get a project with invalid id "2295439998xx"
-    When Send request get a project
-    Then API response status code should be 404 Not Found
-
-  Scenario: Get all collaborators
-    Given Set authorization with valid bearer token
-    And request get a collaborator with valid id "2295439998"
-    When Send request get all collaborators
-    Then API response status code should be 200 OK
-
-#Contoh untuk Delete
-  Scenario: Delete a project with valid id
-    Given request delete project with id "2295439998"
-    When Send request delete project
-    Then API response status code should be 204 no content
-
-  Scenario: Delete a project with invalid id
-    Given request delete project with invalid id "2295439998xx"
-    When Send request delete project
-    Then API response status code should be 400 bad request
-
-  Scenario: Delete a project with invalid token
-    Given request delete project id "2295439998" with invalid token
-    When Send request delete project
-    Then API response status code should be 401 Unauthorized
-
-  Scenario: Delete a project with invalid path
-    Given request delete project id "2295439998" with invalid path
-    When Send request delete project with invalid path
-    Then API response status code should be 404 Not Found
 
 
 
