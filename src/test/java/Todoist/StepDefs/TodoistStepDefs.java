@@ -1,11 +1,13 @@
 package Todoist.StepDefs;
 
+import Todoist.API.TodoistTesting;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.io.File;
-import Todoist.TodoistTesting.TodoistTesting;
+
+import io.restassured.module.jsv.JsonSchemaValidator;
 
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
@@ -35,96 +37,70 @@ public class TodoistStepDefs {
 //        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateProjectWithValidAuthorization.json");
 //        todoistTesting.postCreateProjectheader(jsonFiles);
 //    }
-
-    @When("Send request get all project")
-    public void sendRequestGetAllProject() {
-        SerenityRest.when().get(TodoistTesting.GET_A_PROJECT);
-    }
-
     @Given("post create project with valid json file")
     public void postCreateProjectWithValidJsonFile() {
         File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateProjectWithValidAuthorization.json");
         todoistTesting.postCreateProjectheader(jsonFiles);
     }
 
-    @Given("request get all project")
-    public void requestGetAllProject() {
-        todoistTesting.getAllProject();
+//Get All Project
+    @Given("Set authorization with valid bearer token")
+    public void SetAuthorizationWithValidBeareToken() {
+        todoistTesting.getProjectHeader();
+    }
+    @When("Send request get all project")
+    public void sendRequestGetAllProject() {
+        SerenityRest.when().get(TodoistTesting.GET_ALL_PROJECT);
     }
 
-    @Given("set invalid token & post create project with valid json file")
-    public void setInvalidTokenPostCreateProjectWithValidJsonFile() {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateProjectWithValidAuthorization.json");
-        todoistTesting.postCreateProjectheaderinvalid(jsonFiles);
+    @And("Get all projects assert json validation")
+    public void getAllProjectsAssertJsonValidation() {
+        File jsonFile = new File(TodoistTesting.FILE_JSON+"/GetAllProjectJsonValidation.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonFile));
+    }
+//Get all project with invalid token
+    @Given("Set authorization with invalid bearer token")
+    public void settingAuthorizationWithInvalidBearerToken() {
+        todoistTesting.getProjectHeaderInvalidToken();
     }
 
-    @Then("API response status code should be {int} unauthorized")
-    public void apiResponseStatusCodeShouldBeUnauthorized(int unauthorized) {
+    @Then("API response status code should be {int} Unauthorized")
+    public void apiResponseStatusCodeShouldBeUnauthorized(int Unauthorized) {
         SerenityRest.then().statusCode(401);
     }
-
-    @Given("post create project with invalid json file")
-    public void postCreateProjectWithInvalidJsonFile() {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateProjectWithInvalidData.json");
-        todoistTesting.postCreateProjectheader(jsonFiles);
+    //Get All Project With Invalid Path
+    @When("Send request get all project with invalid path")
+    public void sendRequestGetAllProjectWithInvalidPath() {
+        SerenityRest.when().get(TodoistTesting.GET_ALL_PROJECT_INVALID_PATH);
     }
-
-    @Then("API response status code should be {int} bad request")
-    public void apiResponseStatusCodeShouldBeBadRequest(int bad_request) {
-        SerenityRest.then().statusCode(400);
-    }
-
-    @When("Send request post create a new project on invalid path")
-    public void sendRequestPostCreateANewProjectOnInvalidPath() {
-        SerenityRest.when().post(TodoistTesting.FALSE_CREATE_A_PROJECT);
-    }
-
-    @Then("API response status code should be {int} not found")
-    public void apiResponseStatusCodeShouldBeNotFound(int not_found) {
+    @Then("API response status code should be {int} Not Found")
+    public void apiResponseStatusCodeShouldBeNotFound(int NotFound) {
         SerenityRest.then().statusCode(404);
     }
 
-    @When("Send request post update a project")
-    public void sendRequestPostUpdateANewProject() {
-        SerenityRest.when().post(TodoistTesting.UPDATE_A_PROJECT);
+    //Get A Project with valid id
+    @Given("request get a project with valid id {string}")
+    public void requestGetAProjectWithValidId(String id) {
+        todoistTesting.getAProjectHeader(id);
+    }
+    @When("Send request get a project")
+    public void sendRequestGetAProject() {
+        SerenityRest.when().get(TodoistTesting.GET_A_PROJECT);
+    }
+    @And("Get a projects assert json validation")
+    public void getAProjectsAssertJsonValidation() {
+        File jsonFile = new File(TodoistTesting.FILE_JSON+"/GetAProjectJsonValidation.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonFile));
     }
 
-    @Given("post update project on valid id {string} with valid json file")
-    public void postUpdateProjectOnValidIdWithValidJsonFile(String id) {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/UpdateProjectWithValidData.json");
-        todoistTesting.postUpdateProjectheader(jsonFiles, id);
+    //Get A Project with invalid id
+    @Given("request get a project with invalid id {string}")
+    public void requestGetAProjectWithInvalidId(String id) {
+        todoistTesting.getAProjectHeader(id);
     }
-
-    @Then("API response status code should be {int} no content")
-    public void apiResponseStatusCodeShouldBeNoContent(int no_content) {
-        SerenityRest.then().statusCode(204);
-    }
-
-    @Given("set invalid token and post update project on valid id {string} with valid json file")
-    public void setInvalidTokenAndPostUpdateProjectOnValidIdWithValidJsonFile(String id) {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/UpdateProjectWithValidData.json");
-        todoistTesting.postUpdateProjectheaderinvalid(jsonFiles, id);
-    }
-
-    @Given("post update project on valid id {string} with invalid json file")
-    public void postUpdateProjectOnValidIdWithInvalidJsonFile(String id) {
-        File jsonFiles = new File(TodoistTesting.FILE_JSON+"/UpdateProjectWithInvalidData.json");
-        todoistTesting.postUpdateProjectheader(jsonFiles, id);
-    }
-
-    @When("Send request post update a project on invalid path")
-    public void sendRequestPostUpdateAProjectOnInvalidPath() {
-        SerenityRest.when().post(TodoistTesting.FALSE_UPDATE_A_PROJECT);
-
-    }
-
-    @When("Send request put update a project")
-    public void sendRequestPutUpdateAProject() {
-        SerenityRest.when().put(TodoistTesting.UPDATE_A_PROJECT);
-    }
-
-    @Then("API response status code should be {int} method not allowed")
-    public void apiResponseStatusCodeShouldBeMethodNotAllowed(int not_allowed) {
-        SerenityRest.then().statusCode(405);
+    //Get All Collaborators
+    @When("Send request get all collaborators")
+    public void sendRequestGetAllCollaborators() {
+        SerenityRest.when().get(TodoistTesting.GET_ALL_COLLABORATORS);
     }
 }
