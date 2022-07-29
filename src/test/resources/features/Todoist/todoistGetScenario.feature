@@ -1,10 +1,4 @@
-Feature: Testing API Todoist
-
-  @case_positive @Create
-  Scenario: Create a new project with valid authorization bearer token
-    Given post create project with valid json file
-    When Send request post create a new project
-    Then API response status code should be 200 OK
+Feature: Testing API Todoist - Endpoint GET
 
   @case_positive @Get
   Scenario: Get all project with valid authorization bearer token
@@ -46,10 +40,6 @@ Feature: Testing API Todoist
     And request get a collaborator with valid id "2295439998"
     When Send request get all collaborators
     Then API response status code should be 200 OK
-
-
-
-
 
 
 
