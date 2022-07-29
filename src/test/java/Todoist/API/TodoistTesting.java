@@ -18,9 +18,10 @@ public class TodoistTesting {
     public static String GET_ALL_PROJECT = URL+"/rest/v1/projects";
     public static String GET_ALL_PROJECT_INVALID_PATH = URL+"/rest/v1/projects/xxx";
     public static String GET_A_PROJECT = URL+"/rest/v1/projects/{id}";
-    public static String GET_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projects/{id}/xx";
+    public static String GET_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projectsxxxx/{id}";
     public static String GET_ALL_COLLABORATORS = URL+"/rest/v1/projects/{id}/collaborators";
     public static String DELETE_A_PROJECT = URL+"/rest/v1/projects/{id}";
+    public static String DELETE_A_PROJECT_INVALID_PATH = URL+"/rest/v1/projectssss/{id}";
 
 
     public String PROJECTS = "https://api.todoist.com/rest/v1/projects";
@@ -47,7 +48,7 @@ public class TodoistTesting {
                 .headers("Authorization","Bearer cf3181ac95fcf0abcdcd08aa1ddafeba7824cabd");
 
     }
-    @Step("get project headers invalid token")
+    @Step("Get project headers invalid token")
     public void getProjectHeaderInvalidToken(){
         SerenityRest.given()
                 .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24xxx");
@@ -60,16 +61,23 @@ public class TodoistTesting {
                 .pathParam("id", id);
     }
 
-    @Step("Delete user")
-    public void deleteProject(String id){
-        SerenityRest.given()
-                .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
-                .pathParam("id", id);
-    }
     @Step("Get All Collaborator")
     public void getAllCollaborators(String id){
         SerenityRest.given()
                 .headers("Authorization","Bearer 38e03e89042843309ca5a77775d69818a79f3b24")
+                .pathParam("id", id);
+    }
+    @Step("Delete project")
+    public void deleteProject(String id){
+        SerenityRest.given()
+                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97ba")
+                .pathParam("id", id);
+    }
+
+    @Step("Delete project headers invalid token")
+    public void deleteProjectHeaderInvalidToken(String id){
+        SerenityRest.given()
+                .headers("Authorization","Bearer 1346771ebb10c3a138838a162384911617fd97baXXXX")
                 .pathParam("id", id);
     }
 }

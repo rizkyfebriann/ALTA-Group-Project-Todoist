@@ -11,6 +11,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
+import org.junit.runner.Request;
 
 public class TodoistStepDefs {
 
@@ -99,41 +100,23 @@ public class TodoistStepDefs {
         todoistTesting.getAProjectHeader(id);
     }
     //Get All Collaborators
-    @Given("request get all collaborators")
-    public void requestGetAllCollaborators(String id) {
-        todoistTesting.getAllCollaborators(id);
-    }
     @When("Send request get all collaborators")
     public void sendRequestGetAllCollaborators() {
         SerenityRest.when().get(TodoistTesting.GET_ALL_COLLABORATORS);
     }
-//    @And("Response body should be empty")
-//    public void responseBodyShouldBeEmpty() {
-//        SerenityRest.then().statusCode();
-//
-//    }
+    @And("request get a collaborator with valid id {string}")
+    public void requestGetACollaboratorWithValidId(String id) {
+        todoistTesting.getAProjectHeader(id);
+    }
 
     //Get A project with invalid path
-    @Given("request get a project with invalid path")
-    public void requestGetAProjectWithInvalidPath() {
-        todoistTesting.getProjectHeader();
+    @Given("request get a project id {string} with invalid path")
+    public void requestGetAProjectIdWithInvalidPath(String id) {
+        todoistTesting.getAProjectHeader(id);
     }
     @When("Send request get a project with invalid path")
     public void sendRequestGetAProjectWithInvalidPath() {
         SerenityRest.when().get(TodoistTesting.GET_A_PROJECT_INVALID_PATH);
     }
 
-    //Delete project
-    @Given("request delete project with id {string}")
-    public void requestDeleteProjectWithId(String id) {
-        todoistTesting.deleteProject(id);
-    }
-    @When("Send request delete project")
-    public void sendRequestDeleteProject() {
-        SerenityRest.when().delete(TodoistTesting.DELETE_A_PROJECT);
-    }
-    @Then("API response status code should be {int} No Content")
-    public void apiResponseStatusCodeShouldBeNoContent(int statuscode) {
-        SerenityRest.then().statusCode(statuscode);
-    }
 }
