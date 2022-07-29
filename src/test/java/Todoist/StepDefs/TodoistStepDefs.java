@@ -11,6 +11,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
+import org.junit.runner.Request;
 
 public class TodoistStepDefs {
 
@@ -94,6 +95,7 @@ public class TodoistStepDefs {
         SerenityRest.when().get(TodoistTesting.GET_ALL_COLLABORATORS);
     }
 
+
     @Given("set invalid token & post create project with valid json file")
     public void setInvalidTokenPostCreateProjectWithValidJsonFile() {
         File jsonFiles = new File(TodoistTesting.FILE_JSON+"/CreateProjectWithValidAuthorization.json");
@@ -160,10 +162,23 @@ public class TodoistStepDefs {
         SerenityRest.then().statusCode(405);
     }
 
+
     @And("request get a collaborator with valid id {string}")
     public void requestGetACollaboratorWithValidId(String id) {
         todoistTesting.getAProjectHeader(id);
     }
+
+
+    //Get A project with invalid path
+    @Given("request get a project id {string} with invalid path")
+    public void requestGetAProjectIdWithInvalidPath(String id) {
+        todoistTesting.getAProjectHeader(id);
+    }
+    @When("Send request get a project with invalid path")
+    public void sendRequestGetAProjectWithInvalidPath() {
+        SerenityRest.when().get(TodoistTesting.GET_A_PROJECT_INVALID_PATH);
+    }
+
 
 //Delete project
 //Delete project with valid id
@@ -199,4 +214,7 @@ public class TodoistStepDefs {
     public void sendRequestDeleteProjectWithInvalidPath() {
         SerenityRest.when().delete(TodoistTesting.DELETE_A_PROJECT_INVALID_PATH);
     }
+
+
+
 }
