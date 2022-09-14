@@ -1,1 +1,1 @@
-# REST API Testing for Todoist with Serenity and Cucumber 6
+# REST API Testing for Todoist with Serenity BDD and Cucumber 6
